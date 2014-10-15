@@ -12,10 +12,10 @@
     echo $html->formTableInput(array('upload'=>array('title'=>'Insert Favicon'), 'title'=>'Custom Favicon', 'name'=>'favicon_url', 'type'=>'text', 'id'=>'favicon_url', 'class'=>'regular-text', 'value'=>$favicon_url), 'URL for a valid .ico favicon');
     
     $custom_css = !empty($custom_css)?$custom_css:'';
-    echo $html->formTableTextarea(array('title'=>'Custom CSS', 'name'=>'custom_css', 'type'=>'textarea', 'id'=>'custom_css', 'class'=>'large', 'value'=>$custom_css));
+    echo $html->formTableTextarea(array('title'=>'Custom CSS', 'name'=>'custom_css', 'type'=>'textarea', 'id'=>'custom_css', 'class'=>'large mondiraCSSEditor', 'value'=>$custom_css));
     
     $google_analytics = !empty($google_analytics)?$google_analytics:'';
-    echo $html->formTableTextarea(array('title'=>'Google Analytics', 'name'=>'google_analytics', 'type'=>'textarea', 'id'=>'google_analytics', 'class'=>'large', 'value'=>$google_analytics));
+    echo $html->formTableTextarea(array('title'=>'Google Analytics', 'name'=>'google_analytics', 'type'=>'textarea', 'id'=>'google_analytics', 'class'=>'large mondiraHTMLEditor', 'value'=>$google_analytics));
     
     $suppress_comments_message = !empty($suppress_comments_message)?$suppress_comments_message:'no';
     echo $html->formTableCheckbox(array('title'=>'Suppress Comments Message?', 'name'=>'suppress_comments_message', 'checked'=>$suppress_comments_message, 'id'=>'suppress_comments_message'), 'To hide Comments are closed message on page with comment closed select yes.');
