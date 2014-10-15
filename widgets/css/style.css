@@ -1,0 +1,7 @@
+#TB_overlay {
+    z-index: 999990;
+}
+
+#TB_window {
+    z-index: 999999;
+}
