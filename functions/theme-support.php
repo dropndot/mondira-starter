@@ -216,36 +216,36 @@ if ( !class_exists( 'mondira_add_span_sm_walker' ) ) {
 	}
 }
 
-
 /*
-*
-* Removing theme editor menu.
-*
-* @Author: Jewel Ahmed
-* @Author Web: http://codeatomic.com
-* @Last Updated: 14 Oct, 2014
+---------------------------------------------------------------------------------------
+    Body Class filter to add custom classes
+    @return array of custom classes
+    @since: 1.0.0
+	@Author: Jewel Ahmed
+	@Author Web: http://codeatomic.com
+	@Last Updated: 27 Oct, 2014
+---------------------------------------------------------------------------------------
 */
-if ( !function_exists( "mondira_remove_editor_menu" ) ) {
-    function mondira_remove_editor_menu() {
-        remove_action( 'admin_menu', '_add_themes_utility_last', 101 );
-    }
-}                                                         
-add_action( 'admin_menu', 'mondira_remove_editor_menu', 1 );
-
-/*
-*
-* Removing theme editor menu.
-*
-* @Author: Jewel Ahmed
-* @Author Web: http://codeatomic.com
-* @Last Updated: 14 Oct, 2014
-*/
-if ( !function_exists( "mondira_remove_menu_elements" ) ) {
-    function mondira_remove_menu_elements() {
-        remove_submenu_page( 'themes.php', 'theme-editor.php' );
-    }
-}  
-add_action( 'admin_init', 'mondira_remove_menu_elements', 102 );
+add_filter('body_class', 'mondira_body_classes', 10, 2 );
+function mondira_body_classes(  $classes, $extra ) {
+        global $post, $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone; 
+		
+		if ( empty( $classes ) ) {
+			$classes = mondira_get_custom_body_classes();
+		}
+		
+		if($is_lynx) $classes[] = 'lynx';
+		elseif($is_gecko) $classes[] = 'gecko';
+		elseif($is_opera) $classes[] = 'opera';
+		elseif($is_NS4) $classes[] = 'ns4';
+		elseif($is_safari) $classes[] = 'safari';
+		elseif($is_chrome) $classes[] = 'chrome';
+		elseif($is_IE) $classes[] = 'ie';
+		else $classes[] = 'unknown';
+		if($is_iphone) $classes[] = 'iphone';
+		
+		return $classes;
+}
 
 
 /*
