@@ -385,3 +385,30 @@ $options = array(
 $mondira_page_meta = array( 'config' => $mconfig, 'options' => $options );
 $mondiraPageMeta = new MondiraThemeMetabox( $mondira_page_meta );
 $mondiraPageMeta->init();
+
+$mconfig = array(
+    'title' => 'Page Other Settings',
+    'id' => 'page-other',
+    'page' => 'page'
+);
+
+$options = array(
+     array(
+        "title" => "Html",
+        "id" => "_page_other_html",
+        "type" => "html",
+        "html" => "<p>Note that, for each page individually you can apply custom css to adjust the appearance.</p>"
+    ),
+    array(
+        "title" => "Custom CSS",
+        "desc" => "",
+        "id" => "_custom_css",
+        "default" => "",         
+        "type" => "textarea", 
+        "class" => "large mondiraCSSEditor"
+    )
+);
+
+$mondira_page_meta = array( 'config' => $mconfig, 'options' => $options );
+$mondiraPageMeta = new MondiraThemeMetabox( $mondira_page_meta );
+$mondiraPageMeta->init();
