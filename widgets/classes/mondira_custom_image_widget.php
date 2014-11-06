@@ -7,8 +7,8 @@
 * A widget to display custom Image on sidebar widget area.
 *
 * @package WordPress
-* @subpackage Ponom
-* @since Ponom 1.0.0
+* @subpackage Mondira
+* @since Mondira 1.0.0
 */    
 // Mondira_Custom_Image_Widget
 class Mondira_Custom_Image_Widget extends WP_Widget{

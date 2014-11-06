@@ -7,7 +7,7 @@
 * @subpackage Mondira
 * @version 1.0.0 
 * @author Jewel Ahmed <tojibon@gmail.com>
-* @author url http://codeatomic.com
+* @author url http://mondira.com
 * @copyright  Copyright (c) 2014, Jewel Ahmed
 */
 
@@ -447,7 +447,7 @@ if ( !function_exists( 'mondira_post_gallery_first_image' ) ) {
     function mondira_post_gallery_first_image( $postid ) {
         $post_type = get_post_type( $postid );   
         $mondira_post_gallery_first_image = '';
-        $max_gallery_image = ponom_get_the_number_of_max_gallery_image();
+        $max_gallery_image = mondira_get_the_number_of_max_gallery_image();
         for( $i=1; $i <= $max_gallery_image; $i++ ) {
             $tmp_image = get_post_meta( $postid, $post_type . '-gallery_gallery_image'.$i, TRUE );
             

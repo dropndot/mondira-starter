@@ -7,8 +7,8 @@
 * Makes a custom Widget for displaying flickr photos
 *
 * @package WordPress
-* @subpackage Ponom
-* @since Ponom 1.0.0
+* @subpackage Mondira
+* @since Mondira 1.0.0
 */
 class Mondira_Flickr extends WP_Widget {
 	
