@@ -7,8 +7,8 @@
 * Makes a custom Widget for displaying video from youtube / vimeo on sidebar
 *
 * @package WordPress
-* @subpackage Ponom
-* @since Ponom 1.0.0
+* @subpackage Mondira
+* @since Mondira 1.0.0
 */
 class Mondira_Video extends WP_Widget {
     
