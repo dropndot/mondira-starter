@@ -22,142 +22,89 @@ $header_resize_on_scroll = mondira_get_option( 'general', 'header_resize_on_scro
 
     <header id="header">
 	
-		<div class="container">
-		
-			<div class="row">
-				<div class="col-lg-4 pull-left">
-					
-					<div class="logo">
-						<?php 
-						if( mondira_get_option( 'general', '_use_image_logo' ) != 'yes' ) { 
-						?>
-							<h2><a href="<?php echo home_url(); ?>" class="plain-logo" id="plain-logo"><?php bloginfo( 'name' ); ?></a></h2>
-						<?php 
-						} else if ( mondira_get_option( 'general', 'logo_image' ) ) { 
-						?>
-							<a href="<?php echo home_url(); ?>"><img  data-sticky-logo="<?php echo mondira_get_option( 'general', 'logo_image_sticky' ); ?>" src="<?php echo mondira_get_option('general', 'logo_image'); ?>" alt="<?php bloginfo( 'name' ); ?>"/></a>
-						<?php 
-						} else { 
-						?>    
-							<a href="<?php echo home_url(); ?>"><img data-sticky="<?php echo get_template_directory_uri(); ?>/resources/images/logo.png" src="<?php echo get_template_directory_uri(); ?>/resources/images/logo.png" alt="<?php bloginfo( 'name' ); ?>" /></a>
-						<?php 
-						} 
-						?>
-						
-						<?php 
-						$tagline = get_bloginfo( 'description' ); 
-						if( $tagline != '' ) { 
-						?>
-							<p id="tagline" class="global-header-text-color tagline"><?php echo stripslashes( $tagline ); ?></p>
-						<?php 
-						} 
-						?>
-					</div>
-					
-				</div>
-				<div class="col-lg-8 pull-right">
-					<!-- BEGIN .header-inner -->
-					<div class="header-inner">
-						
-						<div class="navbar-header">
-							<!-- Brand and toggle get grouped for better mobile display -->
-							<button type="button" class="navbar-toggle btn btn-primary btn-menu-primary hide-on-large-devices" data-toggle="collapse" data-target="#mobile-menu">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-						</div>  
-						
-						<nav class="navigation" role="navigation">
-							
-							<!-- Collect the nav links, forms, and other content for toggling -->
-							<div class="collapse navbar-collapse" id="main-primary-menu">
-								<?php 
-								$has_enabled_main_menu = false; 
-								$menu_location = 'primary';
-								$menu_locations = get_nav_menu_locations();
-								$menu_object = ( isset( $menu_locations[ $menu_location ] ) ? wp_get_nav_menu_object( $menu_locations[ $menu_location ] ) : null );
-								if( $menu_object ) {
-									$has_enabled_main_menu = true;
-								}
-								
-								if( $has_enabled_main_menu ) { 
-									wp_nav_menu( 
-										array( 
-											'theme_location' => 'primary',
-											'container' => '',
-											'menu_id' => 'primary-menu',
-											'fallback_cb' => 'wp_page_menu',
-											'walker' => new mondira_add_span_bottom_walker,
-											'depth' => '3',
-										)
-									);
-								} else {
-									wp_nav_menu( 
-										array( 
-											'theme_location' => 'primary',
-											'container' => '',
-											'menu_id' => 'primary-menu',
-											'depth' => '3',
-										)
-									);
-								}
-								?>
-							</div><!-- /.navbar-collapse -->
-						
-						</nav>
-						
-					<!-- END .header-inner -->    
-					</div>
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+
+				<div class="logo">
+					<a href="<?php echo home_url(); ?>" class="navbar-brand">
+					<?php 
+					if( mondira_get_option( 'general', '_use_image_logo' ) != 'yes' ) { 
+					?>
+						<?php bloginfo( 'name' ); ?>
+					<?php 
+					} else if ( mondira_get_option( 'general', 'logo_image' ) ) { 
+					?>
+						<img  data-sticky-logo="<?php echo mondira_get_option( 'general', 'logo_image_sticky' ); ?>" src="<?php echo mondira_get_option('general', 'logo_image'); ?>" alt="<?php bloginfo( 'name' ); ?>"/>
+					<?php 
+					} else { 
+					?>    
+						<img data-sticky="<?php echo get_template_directory_uri(); ?>/resources/images/logo.png" src="<?php echo get_template_directory_uri(); ?>/resources/images/logo.png" alt="<?php bloginfo( 'name' ); ?>" />
+					<?php 
+					} 
+					?>
+					</a>
 				</div>
 			</div>
-			
-		</div>
-   
+			<div id="navbar" class="navbar-collapse collapse">
+				<?php 
+				$has_enabled_main_menu = false; 
+				$menu_location = 'primary';
+				$menu_locations = get_nav_menu_locations();
+				$menu_object = ( isset( $menu_locations[ $menu_location ] ) ? wp_get_nav_menu_object( $menu_locations[ $menu_location ] ) : null );
+				if( $menu_object ) {
+					$has_enabled_main_menu = true;
+				}
+				
+				if( $has_enabled_main_menu ) { 
+					wp_nav_menu( 
+						array( 
+							'theme_location'  => 'primary',
+							'menu_class'      => 'nav navbar-nav navbar-right',
+							'menu_id'         => 'primary-menu',
+							'walker' 		  => new Mondira_Bootstrap_Walker,
+							'depth'           => 3
+						)
+					);
+				} else {
+					wp_nav_menu( 
+						array( 
+							'menu_class'      => 'nav navbar-nav navbar-right',
+							'menu_id'         => 'primary-menu',
+							'fallback_cb'     => 'mondira_wp_page_menu',
+							'depth'           => 3
+						)
+					);
+				}
+				?>
+				  <!--/ <ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+					  <ul class="dropdown-menu" role="menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-header">Nav header</li>
+						<li><a href="#">Separated link</a></li>
+						<li><a href="#">One more separated link</a></li>
+					  </ul>
+					</li>
+				  </ul> -->
+			</div><!--/.nav-collapse -->
+		  </div>
+		</nav>
+		
     </header>
 
 </div>
-
-
-<div id="mobile-menu" class="collapse">
-    
-    <div class="container">
-        
-        <?php 
-        $has_enabled_main_menu = false; 
-        $menu_location = 'primary';
-        $menu_locations = get_nav_menu_locations();
-        $menu_object = ( isset( $menu_locations[ $menu_location ] ) ? wp_get_nav_menu_object( $menu_locations[ $menu_location ] ) : null );
-        if( $menu_object ) {
-            $has_enabled_main_menu = true;
-        }
-        
-        if( $has_enabled_main_menu ) { 
-            wp_nav_menu( 
-                array( 
-                    'theme_location' => 'primary',
-                    'menu' => 'Primary', 
-                    'container' => '',
-                    'menu_id' => 'mobile-primary-menu',
-                    'fallback_cb' => 'wp_page_menu',
-                    'walker' => new mondira_add_span_bottom_walker,
-                    'depth' => '3',
-                )
-            );
-        } else {
-            wp_nav_menu( 
-                array( 
-                    'theme_location' => 'primary',
-                    'menu' => 'Primary', 
-                    'container' => '',
-                    'menu_id' => 'mobile-primary-menu',
-                    'depth' => '3',
-                )
-            );
-        }   
-        ?> 
-        
-    </div>
-    
-</div>	
