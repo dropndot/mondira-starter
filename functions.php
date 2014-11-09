@@ -5,10 +5,10 @@
 *
 * @package WordPress
 * @subpackage Mondira
-* @author Jewel Ahmed <tojibon@gmail.com>
-* @copyright http://codeatomic.com
+* @author Jewel Ahmed <jewel@mondira.com>
+* @copyright http://mondira.com
 * @since version 1.0.0
-* @last modified: 14 Oct, 2014
+* @last modified: 08 Nov, 2014
 */
 
 if ( !function_exists("mondira_widgets_init")){
@@ -21,11 +21,27 @@ if ( !function_exists("mondira_widgets_init")){
             'before_title' => '<h3 class="widget-title">',
             'after_title' => '</h3><div class="clearfix"></div>',
         ));
+        register_sidebar(array(
+            'name' => __( 'Page Sidebar', 'mondira' ),
+            'id' => 'page-sidebar',   
+            'before_widget' => '<div id="%1$s" class="widget %2$s">',
+            'after_widget' => '</div><div class="widget-divider"></div>',
+            'before_title' => '<h3 class="widget-title">',
+            'after_title' => '</h3><div class="clearfix"></div>',
+        ));
         
 		//Registering plugins dependent sidebars.
         include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); 
-        if ( is_plugin_active( 'plugins-name/index.php' ) ) { 
+        if ( is_plugin_active( 'mondira-portfolio/index.php' ) ) { 
             //Register plugins dependent sidebars. 
+			register_sidebar(array(
+				'name' => __( 'Portfolio Sidebar', 'mondira' ),
+				'id' => 'portfolio-sidebar',   
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget' => '</div><div class="widget-divider"></div>',
+				'before_title' => '<h3 class="widget-title">',
+				'after_title' => '</h3><div class="clearfix"></div>',
+			));
         }
     }
 }
@@ -50,7 +66,7 @@ $theme->init(array(
     'theme_name' => get_bloginfo( 'name' ),// 'Mondira', 
     'theme_slug' => 'Mondira',
     'settings_available' => true,
-    'documentation_available' => true
+    'documentation_available' => false
 ));
 require_once( get_template_directory() . '/widgets/widgets.php' );
 require_once( get_template_directory() . '/functions/theme-functions.php' );

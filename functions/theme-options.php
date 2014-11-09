@@ -7,7 +7,7 @@
 * @subpackage Mondira
 * @version 1.0.0 
 * @author Jewel Ahmed <tojibon@gmail.com>
-* @author url http://mondira.com
+* @author url http://codeatomic.com
 * @copyright  Copyright (c) 2013, Jewel Ahmed
 */
 
