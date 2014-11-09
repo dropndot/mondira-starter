@@ -21,25 +21,21 @@
         $header_padding = !empty($header_padding)?$header_padding:'30';
         echo $html->formTableInput(array('title'=>'Header Padding', 'name'=>'header_padding', 'type'=>'text', 'id'=>'header_padding', 'class'=>'regular-text', 'value'=>$header_padding), 'Don\'t include "px" in the string. e.g. 30');
         
-        $header_resize_on_scroll = !empty($header_resize_on_scroll)?$header_resize_on_scroll:'no';
-        echo $html->formTableCheckbox(array('title'=>'Header Resize On Scroll?', 'name'=>'header_resize_on_scroll', 'checked'=>$header_resize_on_scroll, 'id'=>'header_resize_on_scroll'), 'Do you want the header to resize a little when you scroll?');
+		$is_boxed = !empty($is_boxed)?$is_boxed:'no';
+		echo $html->formTableCheckbox(array('title'=>'Boxed Layout?', 'name'=>'is_boxed', 'checked'=>$is_boxed, 'id'=>'is_boxed'), 'To enable boxed content area check this field.');
+        
+		$header_resize_on_scroll = !empty($header_resize_on_scroll)?$header_resize_on_scroll:'no';
+        echo $html->formTableCheckbox(array('title'=>'Header Resize On Scroll?', 'name'=>'header_resize_on_scroll', 'checked'=>$header_resize_on_scroll, 'id'=>'header_resize_on_scroll'), 'Do you want the header to resize a little when you scroll.?');
+		
+		$logo_image_sticky = !empty($logo_image_sticky)?$logo_image_sticky:'';
+        echo $html->formTableInput(array('upload'=>array('title'=>'Upload Logo'), 'title'=>'Sticky Logo', 'name'=>'logo_image_sticky', 'type'=>'text', 'id'=>'logo_image_sticky', 'class'=>'regular-text', 'value'=>$logo_image_sticky, 'data-fold'=>'header_resize_on_scroll#yes'), 'URL for a valid image logo url or you can click on below button to select a logo from media library. Note: It is not supposed to be resized but color changed depending on your heading background color.');
+        
+        
         
         echo $html->tableEnd();
         echo $html->saveChangeButton();
         ?>
     
-    <h3>Website Layout</h3>
-    <p>Your website can be with 2 main layout one is with sidebar based and another is with header based on top area.</p>   
-        <?php 
-        echo $html->tableStart();      
-        
-        $is_boxed = !empty($is_boxed)?$is_boxed:'no';
-		echo $html->formTableCheckbox(array('title'=>'Boxed Layout?', 'name'=>'is_boxed', 'checked'=>$is_boxed, 'id'=>'is_boxed'), 'To enable boxed content area check this field.');
-              
-        echo $html->tableEnd();
-        echo $html->saveChangeButton();
-        ?>
-        
     <h3>Initialize Demo Data</h3>
     <p>If you imported demo data using WordPress xml imported with theme included default demo data, You may noticed all meta images are not showing properly. In that case you must need to check this field to fix that issue.</p>   
         <?php 
@@ -59,16 +55,7 @@
         echo $html->tableEnd();
         echo $html->saveChangeButton();
         ?>
-        
-    <h3>Footer</h3>
-    <p>Replace footer copyright texts here you can put markup content by the text editor.</p>   
-        <?php 
-        echo $html->tableStart();      
-        $footer_copyright_text = !empty($footer_copyright_text)?$footer_copyright_text:'';
-        echo $html->formTableTextarea(array('title'=>'Footer Copy Right Text', 'name'=>'footer_copyright_text', 'type'=>'editor', 'id'=>'footer_copyright_text', 'class'=>'regular-text', 'value'=>$footer_copyright_text), 'Applicable only for sidebar based layout! For other layout you can do it by text widgets!');
-        echo $html->tableEnd();
-        echo $html->saveChangeButton();
-        ?>
+    
     <?php echo $html->endForm(); ?>                                   
     
 </div>

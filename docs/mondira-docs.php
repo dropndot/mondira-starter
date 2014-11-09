@@ -16,6 +16,8 @@ $docs = array(
     )
 );
 
+$docs = array();
+
 $mondira_theme_docs = array(
 	'title' => THEME_NAME . ' Documentation',
 	'docs' => $docs,

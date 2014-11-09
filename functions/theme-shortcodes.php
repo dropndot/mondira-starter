@@ -7,11 +7,11 @@
 * @subpackage Mondira
 * @version 1.0.0 
 * @author Jewel Ahmed <tojibon@gmail.com>
-* @author url http://mondira.com
+* @author url http://codemondira.com
 * @copyright  Copyright (c) 2014, Jewel Ahmed
 */
 
-$css3_animation_arr = array(
+$css3_animation_arr =  array(
 	'' 				=> __( 'Animation','mondira' ),
 	'swing' 		=> __( 'Swing','mondira' ),
 	'pulse' 		=> __( 'Pulse','mondira' ),
@@ -35,6 +35,15 @@ $css3_animation_arr = array(
 	'rotateIn' 		=> __( 'Rotate In','mondira' ),
 	'lightSpeedIn' 	=> __( 'Light Speed In','mondira' ),
 	'rollIn' 		=> __( 'Roll In','mondira' ),
+);
+
+$css_animation_arr = array(
+	'' 				=> __( 'No', 'mondira' ),
+	'top-to-bottom' => __( 'Top to bottom', 'mondira' ),
+	'bottom-to-top' => __( 'Bottom to top', 'mondira' ),
+	'left-to-right' => __( 'Left to right', 'mondira' ),
+	'right-to-left' => __( 'Right to left', 'mondira' ),
+	'appear' 		=> __( 'Appear from center', 'mondira' )
 );
 
 $border_style_arr = array(
@@ -83,6 +92,280 @@ $custom_shortcodes['header_6'] = array(
 	'title'=>__( 'Shortcode Elements', 'mondira' )
 );
 
+/*
+---------------------------------------------------------------------------------------
+    Accordion shortcode support for WP Editor Shortcode Generator
+---------------------------------------------------------------------------------------
+*/
+$custom_shortcodes['vc_accordion'] = array( 
+	'type'=>'regular', 
+	'title'=>__( 'Accordion', 'mondira' ), 
+	'attr'=>array( 
+		'title'=>array(
+			'type'=>'textfield',
+			'desc' => __('Enter text which will be used as widget title. Leave blank if no title is needed.', 'mondira'),
+			'title'=> __('Title', 'mondira')
+		),
+		'active_tab'=>array(
+			'type'=>'textfield',
+			'desc' => __('Enter section number to be active on load or enter false to collapse all sections.', 'mondira'),
+			'title'=> __('Active Section', 'mondira')
+		),
+		'collapsible' => array(
+			'type' => 'checkbox',
+			'title' => __( 'Allow collapsible all', 'mondira' ),
+			'desc' => __('Select checkbox to allow all sections to be collapsible.', 'mondira'),
+			'value' => array( 'yes' => __( 'Allow', 'mondira' ) )
+		),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 
+			'title'=>__('Extra class name', 'mondira')
+		),
+		'nested_shortcode'=>array( 
+			'type'=>'regular', 
+			'shortcode'=>'vc_accordion_tab', 
+			'title'=>__( 'Section', 'mondira' ), 
+			'attr' => array(
+				'title'=>array(
+					'type'=>'text', 
+					'desc' => __('Accordion section title.', 'mondira'),
+					'title'=>__('Title', 'mondira')
+				),
+				'content'=>array(
+					'type'=>'textarea', 
+					'title'=>__('Content', 'mondira')
+				)
+			)
+		)
+	)
+);
+
+/*
+---------------------------------------------------------------------------------------
+    FAQ Toggle shortcode support for WP Editor Shortcode Generator
+---------------------------------------------------------------------------------------
+*/
+$custom_shortcodes['vc_toggle'] = array( 
+	'type'=>'regular', 
+	'title'=>__( 'FAQ Toggle', 'mondira' ),
+	'attr'=>array(
+		'title' => array(
+			'type' => 'textfield',
+			'heading' => __( 'Title', 'mondira' ),
+			'value' => __( 'Toggle Title', 'mondira' ),
+			'description' => __( 'Toggle block title.', 'mondira' )
+		),
+		'content' => array(
+			'type' => 'textarea',
+			'heading' => __( 'Toggle Content', 'mondira' ),
+			'value' => __( 'Toggle content goes here, click edit button to change this text.', 'mondira' ),
+			'description' => __( 'Toggle block content.', 'mondira' )
+		),
+		'open' => array(
+			'type' => 'dropdown',
+			'heading' => __( 'Default State', 'mondira' ),
+			'value' => array(
+				'false' => __( 'Closed', 'mondira' ),
+				'true' => __( 'Open', 'mondira' )
+			),
+			'description' => __( 'Select "Open" if you want toggle to be open by default.', 'mondira' )
+		),
+		'css_animation'=>array(
+			'type'=>	'select', 
+			'title' => 	__('CSS Animation', 'mondira'),
+			'values'=> 	$css_animation_arr 
+		),
+		'el_class' => array(
+			'type' => 'textfield',
+			'heading' => __( 'Extra class name', 'mondira' ),
+			'description' => __( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira' )
+		)
+	)
+);
+
+/*
+---------------------------------------------------------------------------------------
+	* Icon Shortcode for WP Editor Shortcode Generator
+---------------------------------------------------------------------------------------
+*/
+
+$custom_shortcodes['mondira_icons'] = array( 
+	'type'=>'regular', 
+	'title'=>__('Icon', 'mondira' ), 
+	'attr'=>array(
+		'icon_type'=>array(
+			'type'=>'dropdown', 
+			'title'=>__('Icon to display', 'mondira' ), 
+			'desc' => __('Select any existing font icon. or upload a custom image.', 'mondira' ),
+			'values'=>array(
+				'font-awesome'=>'Font Awesome Icons',
+				'steadysets'=>'Steadysets',
+				'linecons'=>'Linecons',
+				'custom'=>'Custom Image Icon'
+			)
+		),
+		'font_awesome' => array(
+			'type'=>'icon', 
+			'title'=>'Icon', 
+			'values'=> array(
+			      
+			),
+			'dependency' => array( 'element' => 'icon_type', 'values' => array( 'font-awesome' ) )
+		),
+		'steadysets' => array(
+			'type'=>'icon', 
+			'title'=>'Steadysets', 
+			'values'=> array(
+				  
+			),
+			'dependency' => array( 'element' => 'icon_type', 'values' => array( 'steadysets' ) )
+		),
+		'linecons' => array(
+			'type'=>'icon', 
+			'title'=>'Linecons', 
+			'values'=> array(
+				  
+			),
+			'dependency' => array( 'element' => 'icon_type', 'values' => array( 'linecons' ) )
+		),
+		
+		'icon_img' => array(
+			'type' => 'attach_image',
+			'title' => __( 'Upload Image Icon', 'mondira' ),
+			'desc' => __( 'Upload the custom image Icon.', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_type', 'values' => array( 'custom' ) )
+		),
+		'img_width' => array(
+			'type' => 'number',
+			'title' => __( 'Image Width', 'mondira' ),
+			'value' => 48,
+			'min' => 16,
+			'max' => 512,
+			'postfix' => 'px',
+			'description' => __( 'Provide Icon Image Width', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_type', 'values' => array( 'custom' ) ),
+		),
+		'icon_size' => array(
+			'type' => 'number',
+			'title' => __( 'Size of Icon', 'mondira' ),
+			'value' => 32,
+			'min' => 12,
+			'max' => 72,
+			'postfix' => 'px',
+			'description' => __( 'How big would you like it in pixel?', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_type', 'values' => array( 'font-awesome', 'steadysets', 'linecons' ) ),
+		),
+		'icon_color' => array(
+			'type' => 'colorpicker',
+			'title' => __( 'Color', 'mondira' ),
+			'value' => '#333333',
+			'description' => __( 'Give it a nice Paint!', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_type', 'values' => array( 'font-awesome', 'steadysets', 'linecons' ) ),
+		),
+		'icon_style' => array(
+			'type' => 'select',
+			'title' => __( 'Icon or Image Style', 'mondira' ),
+			'value' => array(
+				'Simple' => 'none',
+				'Circle Background' => 'circle',
+				'Square Background' => 'square',
+				'Design Your Own' => 'advanced',
+			),
+			'desc' => __( 'We have given three quick preset if you are in a hurry. Otherwise, create your own with various options.', 'mondira' ),
+		),
+		'icon_color_bg' => array(
+			'type' => 'colorpicker',
+			'title' => __( 'Background Color', 'mondira' ),
+			'value' => '#ffffff',
+			'desc' => __( 'Select Background Color for your Icon.', 'mondira' ),	
+			'dependency' => array( 'element' => 'icon_style', 'value' => array( 'circle', 'square', 'advanced' ) )
+		),
+		'icon_border_style' => array(
+			'type' => 'select',
+			'title' => __( 'Icon Border Style', 'mondira' ),
+			'value' => $border_style_arr,
+			'desc' => __( 'Select the Border Style for your Icon.', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_style', 'value' => array( 'advanced' ) )
+		),
+		'icon_color_border' => array(
+			'type' => 'colorpicker',
+			'title' => __( 'Border Color', 'mondira' ),
+			'value' => '#333333',
+			'desc' => __( 'Select Border Color for your Icon.', 'mondira' ),	
+			'dependency' => array( 'element' => 'icon_border_style', 'not_empty' => true ),
+		),
+		'icon_border_size' => array(
+			'type' => 'number',
+			'title' => __( 'Border Width', 'mondira' ),
+			'value' => 1,
+			'min' => 1,
+			'max' => 10,
+			'postfix' => 'px',
+			'desc' => __( 'Thickness of the border for your Icon.', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_border_style', 'not_empty' => true ),
+		),
+		'icon_border_radius' => array(
+			'type' => 'number',
+			'title' => __( 'Border Radius', 'mondira'),
+			'value' => 500,
+			'min' => 1,
+			'max' => 500,
+			'postfix' => 'px',
+			'desc' => __( '0 pixel value will create a square border. As you increase the value, the shape convert in circle slowly. (e.g 500 pixels).', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_border_style', 'not_empty' => true ),
+		),
+		'icon_border_spacing' => array(
+			'type' => 'number',
+			'title' => __( 'Background Size', 'mondira' ),
+			'value' => 50,
+			'min' => 30,
+			'max' => 500,
+			'postfix' => 'px',
+			'desc' => __( 'Spacing from center of the icon till the boundary of border / background', 'mondira' ),
+			'dependency' => array( 'element' => 'icon_border_style', 'not_empty' => true ),
+		),
+		'icon_link' => array(
+			'type' => 'text',
+			'title' => __( 'Link ', 'mondira' ),
+			'description' => __( 'Add a custom link or select existing page url. You can remove existing link as well.', 'mondira' )
+		),
+		'icon_animation' => array(
+			'type' => 'select',
+			'title' => __( 'Icon Animation', 'mondira' ),
+			'value' => $css3_animation_arr,
+			'description' => __( 'Like CSS3 Animations? We have several options for your Icon!', 'mondira' )
+		),
+		'tooltip_disp' => array(
+			'type' => 'select',
+			'title' => __( 'Tooltip', 'mondira' ),
+			'values' => array(
+				'' => 'None',
+				'left' => 'Tooltip from Left',
+				'right' => 'Tooltip from Right',
+				'top' => 'Tooltip from Top',
+				'bottom' => 'Tooltip from Bottom'
+			),
+			'desc' => __( 'Select the tooltip position', 'mondira' ),
+		),							
+		'tooltip_text' => array(
+			'type' => 'text',
+			'title' => __( 'Tooltip Text', 'mondira' ),
+			'desc' => __( 'Enter your Tooltip Text here.', 'mondira' ),
+			'dependency' => array( 'element' => 'tooltip_disp', 'not_empty' => true ),
+		),
+		'icon_align' => array(
+			'type' => 'select',
+			'title' => __( 'Icon Align', 'mondira' ),
+			'value' => $text_alignment_arr
+		),
+		'el_class' => array(
+			'type' => 'text',
+			'title' => __( 'Custom CSS Class', 'mondira' ),
+			'desc' => __( 'Ran out of options? Need more styles? Write your own CSS and mention the class name here.', 'mondira' )
+		)
+	) 
+);
 
 /*
 ---------------------------------------------------------------------------------------
@@ -792,12 +1075,35 @@ function mondira_editor_init() {
 	if( is_admin() && !empty( $custom_shortcodes ) ) { 
 		$MondiraThemeShortcodesGenerator = new MondiraThemeShortcodesGenerator();
 		$MondiraThemeShortcodesGenerator->init();
-		$shortcodes_tmp_array = array();
-		foreach( $custom_shortcodes as $key => $attr ) {
-			$shortcodes_tmp_array[$attr['title']] = $key;
-		}
-		sort( $shortcodes_tmp_array );
 		
+		
+		$shortcodes_tmp_array = array();
+		$i = 0;
+		foreach( $custom_shortcodes as $key => $attr ) {
+			if ( $key == 'header_6' ) {
+				$i++;	
+			}
+			$shortcodes_tmp_array[$i][$attr['title']] = $key;
+		}
+		
+		$final_shortcodes = array();
+		foreach( $shortcodes_tmp_array as $index=>$values ){
+			$tmp = array();
+			$tmp1 = array();
+			foreach( $values as $key=>$val ) {
+				if ( $val == 'header_6' ) {
+					$tmp[$key] = $val;	
+				} else {
+					$tmp1[$key] = $val;
+				}
+			}
+			sort( $tmp1 );
+			$tmp_new = array_merge( $tmp, $tmp1 );
+			
+			
+			$final_shortcodes = array_merge( $final_shortcodes, $tmp_new );
+		}
+		$shortcodes_tmp_array = $final_shortcodes;
 		foreach( $shortcodes_tmp_array as $key => $val ) {
 			$MondiraThemeShortcodesGenerator->mondira_addshortcode( $val, $custom_shortcodes[$val] );
 		}
