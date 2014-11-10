@@ -36,18 +36,34 @@ if ( !function_exists( 'mondira_menu_classes' ) ) {
 	function mondira_menu_classes( $classes, $item ) {
 		if( $item->menu_item_parent == 0 && in_array( 'current-menu-item', $classes ) ) {
 			$classes[] = "active";
+			if ( ( $key = array_search( 'current-menu-item', $classes ) ) !== false ) {
+				unset( $classes[ $key ] );
+			}
 		}
 		
 		if( in_array( 'current-menu-parent', $classes ) ) {
 			$classes[] = "active";
-			$classes[] = "current-menu-item";
-			$classes[] = "current_page_item";
-		} else if( in_array( 'current-menu-ancestor', $classes ) ) {
-			$classes[] = "active";
-			$classes[] = "current-menu-item";
-			$classes[] = "current_page_item";
-		}
+		} 
 		
+		if( in_array( 'current_page_item', $classes ) ) {
+			$classes[] = "active";
+			if ( ( $key = array_search( 'current_page_item', $classes ) ) !== false ) {
+				unset( $classes[ $key ] );
+			}
+		} 
+		
+		if( in_array( 'menu-item-has-children', $classes ) ) {
+			$classes[] = "dropdown";
+			if ( ( $key = array_search( 'menu-item-has-children', $classes ) ) !== false ) {
+				unset( $classes[ $key ] );
+			}
+		} 
+		
+		if( in_array( 'current-menu-ancestor', $classes ) ) {
+			$classes[] = "active";
+		}
+		$classes = array_unique($classes);
+
 		return $classes;
 	}
 }
@@ -72,148 +88,155 @@ add_filter( 'excerpt_more', 'mondira_excerpt_more' );
 
 /*
 *
-* Adding a span for submenus on menu items by menu walker.
+* Adding bootstrap support on menu items by menu walker.
 *
 * @Author: Jewel Ahmed
 * @Author Web: http://codeatomic.com
 * @Last Updated: 14 Oct, 2014
 */
-if ( !class_exists( 'mondira_add_span_walker' ) ) {
-	class mondira_add_span_walker extends Walker_Nav_Menu {
-		function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+if ( !class_exists( 'Mondira_Bootstrap_Walker' ) ) {
+	class Mondira_Bootstrap_Walker extends Walker_Nav_Menu {
+		function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
 			global $wp_query;
 			$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-
-			$class_names = '';
-
-			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-			$classes[] = 'menu-item-' . $item->ID;
-
-			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-			$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
-
-			$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-			$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
-
-			$output .= $indent . '<li' . $id . $class_names .'>';
-
-			$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-			$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-			$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-			$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-
-			$item_output = $args->before;
-			$item_output .= '<a'. $attributes .'>';
-			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-
-			if ( 'primary' == $args->theme_location ) {
-				$submenus = 0 == $depth || 1 == $depth ? get_posts( array( 'post_type' => 'nav_menu_item', 'numberposts' => 1, 'meta_query' => array( array( 'key' => '_menu_item_menu_item_parent', 'value' => $item->ID, 'fields' => 'ids' ) ) ) ) : false;
-				$item_output .= ! empty( $submenus ) ? ( 0 == $depth ? '<span class="arrow glyphicon glyphicon-play"></span>' : '<span class="arrow sub-arrow glyphicon glyphicon-play"></span>' ) : '';
+			
+			$class_names = $value = '';
+			
+			if ( !empty( $args ) && is_object( $args ) && $args->has_children ) {
+				$class_names = "dropdown ";
 			}
-			$item_output .= '</a>';
-			$item_output .= $args->after;
 
-			$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+			$classes = empty( $object->classes ) ? array() : (array) $object->classes;
+
+			$class_names .= join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $object ) );
+			$class_names = ' class="'. esc_attr( $class_names ) . '"';
+
+			$output .= $indent . '<li id="menu-item-'. $object->ID . '"' . $value . $class_names .'>';
+			$attributes  = ! empty( $object->attr_title ) ? ' title="'  . esc_attr( $object->attr_title ) .'"' : '';
+			$attributes .= ! empty( $object->target )     ? ' target="' . esc_attr( $object->target     ) .'"' : '';
+			$attributes .= ! empty( $object->xfn )        ? ' rel="'    . esc_attr( $object->xfn        ) .'"' : '';
+			$attributes .= ! empty( $object->url )        ? ' href="'   . esc_attr( $object->url        ) .'"' : '';
+			
+			if ( !empty( $args ) && is_object( $args ) && $args->has_children ) {
+				$attributes .= ' class="dropdown-toggle" data-toggle="dropdown"';
+			}
+			if ( !empty( $args ) && is_object( $args ) && $args->before ) {
+				$item_output = $args->before;
+			} else {
+				$item_output = '';
+			}
+			
+			$item_output .= '<a'. $attributes .'>';
+			
+			if ( !empty( $args ) && is_object( $args ) && $args->link_before ) {
+				$item_output .= $args->link_before;
+			}
+			
+			$item_output .= apply_filters( 'the_title', $object->title, $object->ID );
+			
+			if ( !empty( $args ) && is_object( $args ) && $args->link_after ) {
+				$item_output .= $args->link_after;
+			}
+			
+			if ( !empty( $args ) && is_object( $args ) && $args->has_children ) {
+				$item_output .= '<span class="caret"></span></a>';
+			} else {
+				$item_output .= '</a>';
+			}
+			
+			if ( !empty( $args ) && is_object( $args ) && $args->after ) {
+				$item_output .= $args->after;
+			}
+			
+			$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $object, $depth, $args );
+		} 
+			
+		function start_lvl( &$output, $depth = 0, $args = array() ) {
+			$indent = str_repeat("\t", $depth);
+			$output .= "\n$indent<ul class=\"dropdown-menu\"  role=\"menu\">\n";
 		}
+		  
+		function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
+			$id_field = $this->db_fields['id'];
+			if ( is_object( $args[0] ) ) {
+				$args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
+			}
+			return parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
+		}        
 	}
 }
 
-
 /*
-*
-* Adding a span for submenus on menu items by menu walker.
-*
-* @Author: Jewel Ahmed
-* @Author Web: http://codeatomic.com
-* @Last Updated: 14 Oct, 2014
+---------------------------------------------------------------------------------------
+    Adding wp_nav_menu_container_allowedtags allowed tags for menu container
+	
+    @since: 1.0.0
+	@Author: Jewel Ahmed
+	@Author Web: http://codeatomic.com
+	@Last Updated: 09 Nov, 2014
+---------------------------------------------------------------------------------------
 */
-if ( !class_exists( 'mondira_add_span_bottom_walker' ) ) {
-	class mondira_add_span_bottom_walker extends Walker_Nav_Menu {
-		function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-			global $wp_query;
-			$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-
-			$class_names = '';
-
-			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-			$classes[] = 'menu-item-' . $item->ID;
-
-			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-			$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
-
-			$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-			$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
-
-			$output .= $indent . '<li' . $id . $class_names .'>';
-
-			$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-			$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-			$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-			$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-
-			$item_output = $args->before;
-			$item_output .= '<a'. $attributes .'>';
-			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-
-			if ( 'primary' == $args->theme_location ) {
-				$submenus = 0 == $depth || 1 == $depth ? get_posts( array( 'post_type' => 'nav_menu_item', 'numberposts' => 1, 'meta_query' => array( array( 'key' => '_menu_item_menu_item_parent', 'value' => $item->ID, 'fields' => 'ids' ) ) ) ) : false;
-				$item_output .= ! empty( $submenus ) ? ( 0 == $depth ? '<span class="arrow glyphicon glyphicon-chevron-down"></span>' : '<span class="arrow sub-arrow glyphicon glyphicon-chevron-down"></span>' ) : '';
-			}
-			$item_output .= '</a>';
-			$item_output .= $args->after;
-
-			$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-		}
-	}
+add_filter('wp_nav_menu_container_allowedtags', 'mondira_wp_nav_menu_container_allowedtags', 10, 2 );
+function mondira_wp_nav_menu_container_allowedtags(  $tags ) {
+	//$allowed_tags = apply_filters( 'wp_nav_menu_container_allowedtags', array( 'div', 'nav' ) );
+	//see wp-includes/nav-menu-template.php
+	$tags[] = 'ul';
+	return $tags;
 }
 
-
 /*
-*
-* Adding a span for submenus on menu items by menu walker.
-*
-* @Author: Jewel Ahmed
-* @Author Web: http://codeatomic.com
-* @Last Updated: 14 Oct, 2014
+---------------------------------------------------------------------------------------
+    Adding wp_page_menu Alternative fallback_cb for default wp_nav_menu
+	Thsi fallback_cb is supposed to be used only when no menu already created by the admin user
+	THIS one only supposed to work for bootstrap navbar.
+	
+    @since: 1.0.0
+	@Author: Jewel Ahmed
+	@Author Web: http://codeatomic.com
+	@Last Updated: 09 Nov, 2014
+---------------------------------------------------------------------------------------
 */
-if ( !class_exists( 'mondira_add_span_sm_walker' ) ) {
-	class mondira_add_span_sm_walker extends Walker_Nav_Menu {
-		function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-			global $wp_query;
-			$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+function mondira_wp_page_menu( $args = array() ) {
+	$defaults = array('sort_column' => 'menu_order, post_title', 'menu_class' => 'menu', 'echo' => true, 'link_before' => '', 'link_after' => '');
+	$args = wp_parse_args( $args, $defaults );
 
-			$class_names = '';
+	$args = apply_filters( 'wp_page_menu_args', $args );
+	$menu = '';
+	$list_args = $args;
 
-			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-			$classes[] = 'menu-item-' . $item->ID;
-
-			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-			$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
-
-			$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-			$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
-
-			$output .= $indent . '<li' . $id . $class_names .'>';
-
-			$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) .'"' : '';
-			$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target     ) .'"' : '';
-			$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn        ) .'"' : '';
-			$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url        ) .'"' : '';
-
-			$item_output = $args->before;
-			$item_output .= '<a'. $attributes .'>';
-			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-
-			if ( 'primary' == $args->theme_location ) {
-				$submenus = 0 == $depth || 1 == $depth ? get_posts( array( 'post_type' => 'nav_menu_item', 'numberposts' => 1, 'meta_query' => array( array( 'key' => '_menu_item_menu_item_parent', 'value' => $item->ID, 'fields' => 'ids' ) ) ) ) : false;
-				$item_output .= ! empty( $submenus ) ? ( 0 == $depth ? '<span class="arrow glyphicon glyphicon-play"></span>' : '<span class="arrow sub-arrow glyphicon glyphicon-play"></span>' ) : '';
+	if ( ! empty($args['show_home']) ) {
+		if ( true === $args['show_home'] || '1' === $args['show_home'] || 1 === $args['show_home'] )
+			$text = __('Home');
+		else
+			$text = $args['show_home'];
+		$class = '';
+		if ( is_front_page() && !is_paged() )
+			$class = 'class="active"';
+		$menu .= '<li ' . $class . '><a href="' . home_url( '/' ) . '">' . $args['link_before'] . $text . $args['link_after'] . '</a></li>';
+		
+		if (get_option('show_on_front') == 'page') {
+			if ( !empty( $list_args['exclude'] ) ) {
+				$list_args['exclude'] .= ',';
+			} else {
+				$list_args['exclude'] = '';
 			}
-			$item_output .= '</a>';
-			$item_output .= $args->after;
-
-			$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+			$list_args['exclude'] .= get_option('page_on_front');
 		}
 	}
+
+	$list_args['echo'] = false;
+	$list_args['title_li'] = '';
+	$menu .= str_replace( array( "\r", "\n", "\t" ), '', wp_list_pages($list_args) );
+	$menu = str_replace( array( "current_page_item", "page_item_has_children", "children", "sub-menu" ), array( "active", "dropdown", "dropdown-menu", "dropdown-menu" ), $menu );
+
+	if ( $menu )
+		$menu = '<ul class="' . esc_attr($args['menu_class']) . '">' . $menu . '</ul>';
+
+	$menu = apply_filters( 'wp_page_menu', $menu, $args );
+	if ( $args['echo'] )
+		echo $menu;
+	else
+		return $menu;
 }
 
 /*
