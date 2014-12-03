@@ -87,6 +87,111 @@ $target_arr = array(
     Loading WP Editor mondira Extensions
 ---------------------------------------------------------------------------------------
 */
+
+$custom_shortcodes['header_1'] = array( 
+	'type'=>'heading', 
+	'title'=>__('Columns', 'mondira')
+);
+
+$custom_shortcodes['mondira_a_whole_row'] = array( 
+	'type'=>'regular', 
+	'title'=>__('A Full Row', 'mondira' ), 
+	'attr'=>array( 
+		'html'=>array(
+			'html' => __('<p>It is going to add a responsive row element in your content display, You are supposed to add some columns as content. To add column shortcode just place the curson inside the row shortcode and choose to add some other <strong>Columns Shortcodes</strong>.</p><p>For example: One Whole Column (1/1)</p>', 'mondira')
+		),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
+			'title'=>__('Extra Class Name', 'mondira')
+		),
+	)
+);
+
+$custom_shortcodes['mondira_one_whole'] = array( 
+	'type'=>'regular', 
+	'title'=>__('One Whole Column (1/1)', 'mondira' ), 
+	'attr'=>array( 
+		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
+			'title'=>__('Extra Class Name', 'mondira')
+		)
+	)
+);
+
+$custom_shortcodes['mondira_one_half'] = array( 
+	'type'=>'regular', 
+	'title'=>__('One Half (1/2)', 'mondira' ), 
+	'attr'=>array( 
+		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
+			'title'=>__('Extra Class Name', 'mondira')
+		)
+	)
+);
+
+$custom_shortcodes['mondira_one_third'] = array( 
+	'type'=>'regular', 
+	'title'=>__('One Third Column (1/3)', 'mondira' ), 
+	'attr'=>array( 
+		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
+			'title'=>__('Extra Class Name', 'mondira')
+		)
+	)
+);
+
+$custom_shortcodes['mondira_two_thirds'] = array( 
+	'type'=>'regular', 
+	'title'=>__('Two Thirds Column (2/3)', 'mondira' ), 
+	'attr'=>array( 
+		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
+			'title'=>__('Extra Class Name', 'mondira')
+		)
+	)
+);
+
+$custom_shortcodes['mondira_one_fourth'] = array( 
+	'type'=>'regular', 
+	'title'=>__('One Fourth Column (1/4)', 'mondira' ), 
+	'attr'=>array( 
+		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
+			'title'=>__('Extra Class Name', 'mondira')
+		)
+	)
+);
+
+$custom_shortcodes['mondira_three_fourths'] = array( 
+	'type'=>'regular', 
+	'title'=>__('Three Fourths Column (3/4)', 'mondira' ), 
+	'attr'=>array( 
+		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
+			'title'=>__('Extra Class Name', 'mondira')
+		)
+	)
+);
+
+
+/*
+---------------------------------------------------------------------------------------
+    Elements WP Editor Shortcode Generator
+---------------------------------------------------------------------------------------
+*/
 $custom_shortcodes['header_6'] = array( 
 	'type'=>'heading', 
 	'title'=>__( 'Shortcode Elements', 'mondira' )
@@ -97,7 +202,7 @@ $custom_shortcodes['header_6'] = array(
     Accordion shortcode support for WP Editor Shortcode Generator
 ---------------------------------------------------------------------------------------
 */
-$custom_shortcodes['vc_accordion'] = array( 
+$custom_shortcodes['mondira_accordion'] = array( 
 	'type'=>'regular', 
 	'title'=>__( 'Accordion', 'mondira' ), 
 	'attr'=>array( 
@@ -106,30 +211,24 @@ $custom_shortcodes['vc_accordion'] = array(
 			'desc' => __('Enter text which will be used as widget title. Leave blank if no title is needed.', 'mondira'),
 			'title'=> __('Title', 'mondira')
 		),
-		'active_tab'=>array(
+		'active_section'=>array(
 			'type'=>'textfield',
-			'desc' => __('Enter section number to be active on load or enter false to collapse all sections.', 'mondira'),
+			'desc' => __('Enter section number to be active on load or enter false to collapse all sections. Ex: 1', 'mondira'),
 			'title'=> __('Active Section', 'mondira')
-		),
-		'collapsible' => array(
-			'type' => 'checkbox',
-			'title' => __( 'Allow collapsible all', 'mondira' ),
-			'desc' => __('Select checkbox to allow all sections to be collapsible.', 'mondira'),
-			'value' => array( 'yes' => __( 'Allow', 'mondira' ) )
 		),
 		'el_class'=>array(
 			'type'=>'text', 
 			'desc' => 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 
-			'title'=>__('Extra class name', 'mondira')
+			'title'=>__('Extra Class Name', 'mondira')
 		),
 		'nested_shortcode'=>array( 
 			'type'=>'regular', 
-			'shortcode'=>'vc_accordion_tab', 
+			'shortcode'=>'mondira_accordion_section', 
 			'title'=>__( 'Section', 'mondira' ), 
 			'attr' => array(
 				'title'=>array(
 					'type'=>'text', 
-					'desc' => __('Accordion section title.', 'mondira'),
+					'desc' => __('Accordion Section Title.', 'mondira'),
 					'title'=>__('Title', 'mondira')
 				),
 				'content'=>array(
@@ -146,40 +245,40 @@ $custom_shortcodes['vc_accordion'] = array(
     FAQ Toggle shortcode support for WP Editor Shortcode Generator
 ---------------------------------------------------------------------------------------
 */
-$custom_shortcodes['vc_toggle'] = array( 
+$custom_shortcodes['mondira_toggle'] = array( 
 	'type'=>'regular', 
-	'title'=>__( 'FAQ Toggle', 'mondira' ),
-	'attr'=>array(
-		'title' => array(
-			'type' => 'textfield',
-			'heading' => __( 'Title', 'mondira' ),
-			'value' => __( 'Toggle Title', 'mondira' ),
-			'description' => __( 'Toggle block title.', 'mondira' )
+	'title'=>__( 'Toggle', 'mondira' ), 
+	'attr'=>array( 
+		'title'=>array(
+			'type'=>'textfield',
+			'desc' => __('Enter text which will be used as widget title. Leave blank if no title is needed.', 'mondira'),
+			'title'=> __('Title', 'mondira')
 		),
-		'content' => array(
-			'type' => 'textarea',
-			'heading' => __( 'Toggle Content', 'mondira' ),
-			'value' => __( 'Toggle content goes here, click edit button to change this text.', 'mondira' ),
-			'description' => __( 'Toggle block content.', 'mondira' )
+		'active_section'=>array(
+			'type'=>'textfield',
+			'desc' => __('Enter section number to be active on load or enter false to collapse all sections. Ex: 1', 'mondira'),
+			'title'=> __('Active Section', 'mondira')
 		),
-		'open' => array(
-			'type' => 'dropdown',
-			'heading' => __( 'Default State', 'mondira' ),
-			'value' => array(
-				'false' => __( 'Closed', 'mondira' ),
-				'true' => __( 'Open', 'mondira' )
-			),
-			'description' => __( 'Select "Open" if you want toggle to be open by default.', 'mondira' )
+		'el_class'=>array(
+			'type'=>'text', 
+			'desc' => 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 
+			'title'=>__('Extra Class Name', 'mondira')
 		),
-		'css_animation'=>array(
-			'type'=>	'select', 
-			'title' => 	__('CSS Animation', 'mondira'),
-			'values'=> 	$css_animation_arr 
-		),
-		'el_class' => array(
-			'type' => 'textfield',
-			'heading' => __( 'Extra class name', 'mondira' ),
-			'description' => __( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira' )
+		'nested_shortcode'=>array( 
+			'type'=>'regular', 
+			'shortcode'=>'mondira_toggle_section', 
+			'title'=>__( 'Section', 'mondira' ), 
+			'attr' => array(
+				'title'=>array(
+					'type'=>'text', 
+					'desc' => __('Toggle Section Title.', 'mondira'),
+					'title'=>__('Title', 'mondira')
+				),
+				'content'=>array(
+					'type'=>'textarea', 
+					'title'=>__('Content', 'mondira')
+				)
+			)
 		)
 	)
 );
@@ -505,7 +604,7 @@ $custom_shortcodes['mondira_dropcap'] = array(
     Google Map shortcode support for WP Editor Shortcode Generator
 ---------------------------------------------------------------------------------------
 */
-$custom_shortcodes['vc_gmaps'] = array(  
+$custom_shortcodes['mondira_gmaps'] = array(  
 	'type'=>'regular', 
 	'title'=>__( 'Google Map', 'mondira' ),  
 	'attr'=>array( 
