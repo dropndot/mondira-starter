@@ -97,14 +97,30 @@ $custom_shortcodes['mondira_a_whole_row'] = array(
 	'type'=>'regular', 
 	'title'=>__('A Full Row', 'mondira' ), 
 	'attr'=>array( 
-		'html'=>array(
-			'html' => __('<p>It is going to add a responsive row element in your content display, You are supposed to add some columns as content. To add column shortcode just place the curson inside the row shortcode and choose to add some other <strong>Columns Shortcodes</strong>.</p><p>For example: One Whole Column (1/1)</p>', 'mondira')
+		'css'=>array(
+			'type'=>'css_design', 
+			'desc' => __('Design your element with border, padding, margin and background etc css property.', 'mondira'), 
+			'title'=>__('Design', 'mondira')
 		),
+		'row_type' => array(
+			'type' => 'select',
+			'title' => __( 'Row Type', 'mondira' ),
+			'values' => array(
+				'' => 'Theme defaults',
+				'fullwidth' => 'Full Width Row',
+				'fullwidth boxed' => 'Full Width Boxed'
+			),
+			'desc' => __( '', 'mondira' ),
+		),	
 		'el_class'=>array(
 			'type'=>'text', 
 			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
 			'title'=>__('Extra Class Name', 'mondira')
 		),
+		'html'=>array(
+			'html' => __('<p>It is going to add a responsive row element in your content display, You are supposed to add some columns as content. To add column shortcode just place the curson inside the row shortcode and choose to add some other <strong>Columns Shortcodes</strong>.</p><p>For example: One Whole Column (1/1)</p>', 'mondira')
+		),
+		
 	)
 );
 
@@ -112,7 +128,12 @@ $custom_shortcodes['mondira_one_whole'] = array(
 	'type'=>'regular', 
 	'title'=>__('One Whole Column (1/1)', 'mondira' ), 
 	'attr'=>array( 
-		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
+		'css'=>array(
+			'type'=>'css_design', 
+			'desc' => __('Design your element with border, padding, margin and background etc css property.', 'mondira'), 
+			'title'=>__('Design', 'mondira')
+		),
+		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira'), 'desc' => __('Add some content for One Whole Column. You can customize your content with visual tab and you can use shortcode also as content.', 'mondira'), ),
 		'el_class'=>array(
 			'type'=>'text', 
 			'desc' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira'), 
@@ -125,6 +146,11 @@ $custom_shortcodes['mondira_one_half'] = array(
 	'type'=>'regular', 
 	'title'=>__('One Half (1/2)', 'mondira' ), 
 	'attr'=>array( 
+		'css'=>array(
+			'type'=>'css_design', 
+			'desc' => __('Design your element with border, padding, margin and background etc css property.', 'mondira'), 
+			'title'=>__('Design', 'mondira')
+		),
 		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
 		'el_class'=>array(
 			'type'=>'text', 
@@ -138,6 +164,11 @@ $custom_shortcodes['mondira_one_third'] = array(
 	'type'=>'regular', 
 	'title'=>__('One Third Column (1/3)', 'mondira' ), 
 	'attr'=>array( 
+		'css'=>array(
+			'type'=>'css_design', 
+			'desc' => __('Design your element with border, padding, margin and background etc css property.', 'mondira'), 
+			'title'=>__('Design', 'mondira')
+		),
 		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
 		'el_class'=>array(
 			'type'=>'text', 
@@ -151,6 +182,11 @@ $custom_shortcodes['mondira_two_thirds'] = array(
 	'type'=>'regular', 
 	'title'=>__('Two Thirds Column (2/3)', 'mondira' ), 
 	'attr'=>array( 
+		'css'=>array(
+			'type'=>'css_design', 
+			'desc' => __('Design your element with border, padding, margin and background etc css property.', 'mondira'), 
+			'title'=>__('Design', 'mondira')
+		),
 		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
 		'el_class'=>array(
 			'type'=>'text', 
@@ -164,6 +200,11 @@ $custom_shortcodes['mondira_one_fourth'] = array(
 	'type'=>'regular', 
 	'title'=>__('One Fourth Column (1/4)', 'mondira' ), 
 	'attr'=>array( 
+		'css'=>array(
+			'type'=>'css_design', 
+			'desc' => __('Design your element with border, padding, margin and background etc css property.', 'mondira'), 
+			'title'=>__('Design', 'mondira')
+		),
 		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
 		'el_class'=>array(
 			'type'=>'text', 
@@ -177,6 +218,11 @@ $custom_shortcodes['mondira_three_fourths'] = array(
 	'type'=>'regular', 
 	'title'=>__('Three Fourths Column (3/4)', 'mondira' ), 
 	'attr'=>array( 
+		'css'=>array(
+			'type'=>'css_design', 
+			'desc' => __('Design your element with border, padding, margin and background etc css property.', 'mondira'), 
+			'title'=>__('Design', 'mondira')
+		),
 		'content'=>array('type'=>'textarea', 'title'=>__('Content','mondira')),
 		'el_class'=>array(
 			'type'=>'text', 
@@ -475,8 +521,9 @@ $custom_shortcodes['mondira_audio'] = array(
 	'type'=>'regular', 
 	'title'=>__( 'Audio', 'mondira' ), 
 	'attr'=>array( 
-		'mp3'=>array('type'=>'text', 'title'=>__( 'MP3 File URL', 'mondira' )),
-		'ogg'=>array('type'=>'text', 'title'=>__( 'OGA File URL', 'mondira' )),
+		'mp3'=>array('type'=>'attach_file', 'title'=>__( 'MP3 File URL', 'mondira' )),
+		'oga'=>array('type'=>'attach_file', 'title'=>__( 'OGA File URL', 'mondira' )),
+		'wav'=>array('type'=>'attach_file', 'title'=>__( 'WAV File URL', 'mondira' )),
 		'el_class'=>array(
 			'type'=>'text', 
 			'desc' => 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 
@@ -494,16 +541,13 @@ $custom_shortcodes['mondira_button'] = array(
 	'type'=>'regular', 
 	'title'=>__( 'Button', 'mondira' ), 
 	'attr'=>array( 
-		'buttontype'=>array(
+		'style'=>array(
 			'type'=>'select', 
 			'class'=>'', 
-			'title'=>__( 'Button Type', 'mondira' ),
+			'title'=>__( 'Button Style', 'mondira' ),
 			'values'=>array(
-				'btn-default'=>'Default',
-				'btn-primary'=>'Primary',
-				'btn-success'=>'Success',
-				'btn-warning'=>'Warning',
-				'btn-info'=>'Info'
+				'btn-theme-default'=>'Theme Default',
+				'btn-white'=>'Button White'
 			)
 		),
 		'size'=>array(
@@ -511,22 +555,28 @@ $custom_shortcodes['mondira_button'] = array(
 			'class'=>'', 
 			'title'=>__( 'Button Size', 'mondira' ),
 			'values'=>array(
-				''=>'Default',
+				'btn-df'=>'Default',
 				'btn-xs'=>'Small',
 				'btn-sm'=>'Medium',
-				'btn-lg'=>'Large'
+				'btn-lg'=>'Large',
+				'btn-elg'=>'Extra Large'
 			)
+		),
+		'text'=>array(
+			'type'=>'text', 
+			'desc' => '', 
+			'title'=>__( 'Button Text', 'mondira' )
+		),
+		'icon_class'=>array(
+			'type'=>'text', 
+			'desc' => __( 'You can get the font awesome icon class <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">from here</a>, just copy and post it here. ', 'mondira' ), 
+			'title'=>__( 'Icon Class', 'mondira' )
 		),
 		'src'=>array(
 			'type'=>'text', 
 			'class'=>'', 
 			'title'=>__( 'Target SRC', 'mondira' ),
 			'values'=> '#'
-		),
-		'content'=>array(
-			'type'=>'text', 
-			'desc' => '', 
-			'title'=>__( 'Button Text', 'mondira' )
 		),
 		'el_class'=>array(
 			'type'=>'text', 
@@ -541,222 +591,20 @@ $custom_shortcodes['mondira_button'] = array(
 	* Divider Shortcode for WP Editor Shortcode Generator
 ---------------------------------------------------------------------------------------
 */
-$custom_shortcodes['mondira_divider'] = array( 
+$custom_shortcodes['mondira_scroll_top'] = array( 
 	'type'=>'regular', 
-	'title'=>__( 'Divider', 'mondira' ), 
+	'title'=>__( 'Scroll To Top', 'mondira' ), 
 	'attr'=>array( 
 		'scroll_text'=>array(
 			'type'=>'text', 
-			'desc' => "Enter the text for scroll to top", 
-			'title'=>__( 'Scroll To Top Text', 'mondira' )
+			'value'=>'Move To Top', 
+			'desc' => __( 'Enter the text for scroll to top', 'mondira' ), 
+			'title'=> __( 'Scroll To Top Text', 'mondira' )
 		),
 		'el_class'=>array(
 			'type'=>'text', 
 			'desc' => 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 
 			'title'=>__( 'Extra Class Name', 'mondira' )
-		)
-	)
-);
-
-/*
----------------------------------------------------------------------------------------
-	* Dropcap Shortcode for WP Editor Shortcode Generator
----------------------------------------------------------------------------------------
-*/
-$custom_shortcodes['mondira_dropcap'] = array( 
-	'type'=>'regular', 
-	'title'=>__( 'Dropcap', 'mondira' ), 
-	'attr'=>array( 
-		'color'=>array(
-			'type'=>'color', 
-			'class'=>'wp-color-picker', 
-			'title'=>__( 'Dropcap Color', 'mondira' )
-		),
-		'background'=>array(
-			'type'=>'color', 
-			'class'=>'wp-color-picker', 
-			'title'=>__( 'Dropcap Background', 'mondira' )
-		),
-		'type'=>array(
-			'type'=>'select', 
-			'class'=>'', 
-			'title'=>__( 'Type', 'mondira' ),
-			'values'=>array(
-				'circle'=>'Circle',
-				'ractangle'=>'Ractangle'
-			)
-		),
-		'content'=>array(
-			'type'=>'textarea', 
-			'desc' => '', 
-			'title'=>__( 'Message Text', 'mondira' )
-		),
-		'el_class'=>array(
-			'type'=>'text', 
-			'desc' => 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 
-			'title'=>__( 'Extra Class Name', 'mondira' )
-		)
-	)
-);
-
-/*
----------------------------------------------------------------------------------------
-    Google Map shortcode support for WP Editor Shortcode Generator
----------------------------------------------------------------------------------------
-*/
-$custom_shortcodes['mondira_gmaps'] = array(  
-	'type'=>'regular', 
-	'title'=>__( 'Google Map', 'mondira' ),  
-	'attr'=>array( 
-		
-		'width' => array(
-			'type' => 'number',
-			'heading' => __( 'Map Width', 'mondira' ),
-			'value' => 100,
-			'min' => 25,
-			'max' => 100,
-			'postfix' => '%'
-		),
-		
-		'height' => array(
-			'type' => 'number',
-			'heading' => __( 'Map Heigh', 'mondira' ),
-			'value' => 320,
-			'min' => 300,
-			'max' => 700,
-			'postfix' => 'px'
-		),
-		
-		'map_type' => array(
-			'type' => 'dropdown',
-			'class' => '',
-			'heading' => __( 'Map Type', 'mondira' ),
-			'value' => array(
-				'ROADMAP' => __( 'Roadmap', 'mondira' ), 
-				'SATELLITE' => __( 'Satellite', 'mondira' ), 
-				'HYBRID' => __( 'Hybrid', 'mondira' ), 
-				'TERRAIN' => __( 'Terrain', 'mondira' )
-			)
-		),
-		
-		'lat' => array(
-			'type' => 'textfield',
-			'class' => '',
-			'heading' => __( 'Location Latitude', 'mondira' ),
-			'value' => '48.89364',
-			'description' => __( '<a href=\'http://universimmedia.pagesperso-orange.fr/geo/loc.htm\' target=\'_blank\'>Click here</a> to find Latitude & Longitude value of your location.', 'mondira' ),
-		),
-		
-		'lng' => array(
-			'type' => 'textfield',
-			'class' => '',
-			'heading' => __( 'Location Longitude', 'mondira' ),
-			'value' => '2.33739',
-			'description' => __( '<a href=\'http://universimmedia.pagesperso-orange.fr/geo/loc.htm\' target=\'_blank\'>Click here</a> to find Latitude & Longitude value of your location.', 'mondira' ),
-		),
-		
-		'zoom' => array(
-			'type' => 'number',
-			'value' => 17,
-			'min' => 1,
-			'max' => 20,
-			'heading' => __( 'Map Zoom Level', 'mondira' )
-		),
-		
-		'scrollwheel' => array(
-			'type' => 'checkbox',
-			'heading' => __( '', 'mondira' ),
-			'value' => array( 
-				'false' => __( 'Disable google map zooming on mouse wheel scroll', 'mondira' ) 
-			)
-		),
-		
-		'streetviewcontrol' => array(
-			'type' => 'checkbox',
-			'heading' => __( '', 'mondira' ),
-			'value' => array( 
-				'true' => __( 'Show street view control', 'mondira' ) 
-			)
-		),
-		
-		'maptypecontrol' => array(
-			'type' => 'checkbox',
-			'heading' => __( '', 'mondira' ),
-			'value' => array( 
-				'true' => __( 'Show map type control', 'mondira' ) 
-			)
-		),
-		
-		'pancontrol' => array(
-			'type' => 'checkbox',
-			'heading' => __( '', 'mondira' ),
-			'value' => array( 
-				'true' => __( 'Show map pan control', 'mondira' ) 
-			)
-		),
-		
-		'zoomcontrol' => array(
-			'type' => 'checkbox',
-			'heading' => __( '', 'mondira' ),
-			'value' => array( 
-				'true' => __( 'Show map zoom control', 'mondira' ) 
-			)
-		),
-		
-		'zoomcontrolsize' => array(
-			'type' => 'dropdown',
-			'class' => '',
-			'heading' => __( 'Zoom Control Size', 'mondira' ),
-			'value' => array(
-				'SMALL' => __( 'Small', 'mondira' ), 
-				'LARGE' => __('Large', 'mondira' )
-			),
-			'dependency' => array(
-				'element' => 'zoomControl',
-				'value' => array( 'true' ) 
-			)
-		),
-		
-		'marker_icon' => array(
-			'type' => 'dropdown',
-			'class' => '',
-			'heading' => __( 'Marker/Point Icon', 'mondira' ),
-			'value' => array(
-				'default' => __( 'Google Default', 'mondira' ), 
-				'default_self' => __( 'Theme Default', 'mondira' ), 
-				'custom' => __( 'Upload Custom', 'mondira' )
-			)
-		),
-		
-		'icon_img' => array(
-			'type' => 'attach_image',
-			'class' => '',
-			'heading' => __( 'Upload Image Icon', 'mondira' ),
-			'description' => __( 'Upload the custom image icon.', 'mondira' ),
-			'dependency' => array(
-				'element' => 'marker_icon',
-				'value' => array( 'custom' ) 
-			)
-		),
-		
-		'marker_content' => array(
-			'type' => 'textarea_html',
-			'class' => '',
-			'heading' => __( 'Info Window Text', 'mondira' )
-		),
-		
-		'map_style' => array(
-			'type' => 'textarea',
-			'class' => '',
-			'heading' => 'Google Styled Map JSON',
-			'value' => '',
-			'description' => __( '<a target=\'_blank\' href=\'http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html\'>Click here</a> to get the style JSON code for styling your map.', 'mondira')
-		),
-		
-		'el_class' => array(
-			'type' => 'textfield',
-			'heading' => __( 'Extra Class Name', 'mondira' ),
-			'description' => __( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira' )
 		)
 	)
 );
@@ -780,10 +628,10 @@ $custom_shortcodes['mondira_message'] = array(
 			'desc' => '', 
 			'title'=>__( 'Message Color', 'mondira' ),
 			'values'=>array(
-				'bs-callout-success'=>'Success',
-				'bs-callout-info'=>'Info',
-				'bs-callout-warning'=>'Warning',
-				'bs-callout-danger'=>'Danger'
+				'alert-success'=>'Success',
+				'alert-info'=>'Info',
+				'alert-warning'=>'Warning',
+				'alert-danger'=>'Danger'
 			)
 		),
 		'content'=>array(
@@ -808,7 +656,7 @@ $custom_shortcodes['mondira_empty_space'] = array(
 	'type'=>'regular', 
 	'title'=>__( 'Empty Space', 'mondira' ), 
 	'attr'=>array( 
-		'height'=>array(
+		'space_height'=>array(
 			'type'=>'number', 
 			'desc' => '', 
 			'min' => '10', 
@@ -823,51 +671,6 @@ $custom_shortcodes['mondira_empty_space'] = array(
 			'heading' => __( 'Extra Class Name', 'mondira' ),
 			'param_name' => 'el_class',
 			'description' => __( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira' ),
-		)
-	)
-);
-
-/*
----------------------------------------------------------------------------------------
-    Separator With Text shortcode support for WP Editor Shortcode Generator
----------------------------------------------------------------------------------------
-*/
-$custom_shortcodes['mondira_text_separator'] = array(  
-	'type'=>'regular', 
-	'title'=>__( 'Separator With Text', 'mondira' ),  
-	'attr'=>array( 
-		
-		'title'=>array(
-			'type'=>'text', 
-			'values'=> __( 'Separator Title', 'mondira' ),
-			'title'=>__( 'Title', 'mondira' )
-		),
-		'title_align'=>array(
-			'type' => 'select',
-			'title' => __( 'Text Align', 'mondira' ),
-			'values' => $text_alignment_arr
-		),	
-		'color'=>array(
-			'type' => 'color',
-			'title' => __( 'Color', 'mondira' ),
-			'desc' => __( 'Separator color.', 'mondira' )
-		),
-		'style'=>array(
-			'type' => 'select',
-			'title' => __( 'Style', 'mondira' ),
-			'values' => $border_style_arr,
-			'desc' => __( 'Separator style.', 'mondira' )
-		),
-			
-		'text_background_color'=>array(
-			'type'=>'color',
-			'desc' => 'Select text background color for your element.', 
-			'title'=>__( 'Content Color', 'mondira' )
-		),
-		'el_class'=>array(
-			'type' => 'textfield',
-			'title' => __( 'Extra Class Name', 'mondira' ),
-			'desc' => __( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mondira' )
 		)
 	)
 );
@@ -887,11 +690,6 @@ $custom_shortcodes['mondira_single_image'] = array(
 			'title' => 	__( 'Image', 'mondira' ),
 			'desc' 	=> 	__( 'Select image from media library.', 'mondira' )
 		),
-		'css_animation'=>array(
-			'type'=>	'select', 
-			'title' => 	__( 'Image CSS Animation', 'mondira' ),
-			'values'=> 	$css3_animation_arr 
-		),
 		'img_size' => array(
 			'type' => 'textfield',
 			'heading' => __( 'Image Size', 'mondira' ),
@@ -903,24 +701,6 @@ $custom_shortcodes['mondira_single_image'] = array(
 			'values' => $text_alignment_arr,
 			'desc' => __( 'Select image alignment.', 'mondira' )
 		),
-		'style' => array(
-			'type' => 'select',
-			'heading' => __( 'Image Style', 'mondira' ),
-			'values' => $image_style_arr
-		),
-		'border_color' => array(
-			'type' => 'color',
-			'heading' => __( 'Border Color', 'mondira' ),
-			'dependency' => array(
-				'element' => 'style',
-				'values' => array( 'border', 'border_circle', 'outline', 'outline_circle' )
-			)
-		),
-		'delay'=>array(
-			'type'	=> 	'text', 
-			'title'	=> 	__( 'Delay', 'mondira' ),
-			'desc' 	=> 	__( 'Enter delay (in milliseconds) if needed e.g. 150. This parameter comes in handy when creating the animate in "one by one" effect in horizontal columns. ', 'mondira' ),
-		),		
 		'img_link_large' => array(
 			'type' => 'checkbox',
 			'title' => __( 'Link to large image?', 'mondira' ),
@@ -961,7 +741,12 @@ $custom_shortcodes['mondira_single_image'] = array(
 $custom_shortcodes['mondira_milestone'] = array( 
 	'type'=>'regular', 
 	'title'=>__( 'Milestone', 'mondira' ), 
-	'attr'=>array( 
+	'attr'=>array( 	
+		'icon_class'=>array(
+			'type'=>'text', 
+			'desc' => __( 'You can get the font awesome icon class <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">from here</a>, just copy and post it here. ', 'mondira' ), 
+			'title'=>__( 'Icon Class', 'mondira' )
+		),
 		'number'=>array(
 		  'type' => 'textfield',
 		  'heading' => __( 'Milestone Number', 'mondira' ),
@@ -1067,11 +852,14 @@ $custom_shortcodes['mondira_video'] = array(
 	'type'=>'regular', 
 	'title'=>__( 'Video', 'mondira' ),  
 	'attr'=>array( 
-		'mp4'=>array('type'=>'text', 'title'=>__( 'MP4 File URL', 'mondira' ), 'desc' => __( 'Only supply the formats you desire, this shortcode is just a shortcut to place the <a href="https://codex.wordpress.org/Video_Shortcode" target="_blank">default WordPress video player</a>.')),
-		'webm'=>array('type'=>'text', 'title'=>__( 'WEBM File URL', 'mondira' )),
-		'ogv'=>array('type'=>'text', 'title'=>__( 'OGV FILE URL', 'mondira' )),
+		'html'=>array(
+			'html' => __('<p>Only supply the formats you desire, this shortcode is just a shortcut to place the <a href="https://codex.wordpress.org/Video_Shortcode" target="_blank">default WordPress video player</a>.</p>', 'mondira')
+		),
+		'mp4'=>array('type'=>'attach_file', 'title'=>__( 'MP4 File URL', 'mondira' )), 
+		'mov'=>array('type'=>'attach_file', 'title'=>__( 'MOV File URL', 'mondira' )),
+		'ogv'=>array('type'=>'attach_file', 'title'=>__( 'OGV FILE URL', 'mondira' )),
 		'poster'=>array(
-			'type'=>'custom', 
+			'type'=>'attach_image', 
 			'title'  => __( 'Preview Image','mondira' ), 
 			'desc' => __( 'The preview image should be the same dimensions as your video.', 'mondira' )
 		),
@@ -1092,10 +880,10 @@ $custom_shortcodes['mondira_vimeo'] = array(
 	'type'=>'regular', 
 	'title'=>__( 'Vimeo', 'mondira' ),  
 	'attr'=>array( 
-		'content'=>array(
+		'video_id'=>array(
 			'type'=>'text', 
-			'desc' => 'Vimeo full video url.', 
-			'title'=>__( 'Video URL', 'mondira' )
+			'desc' => 'Vimeo video id only, not the full url. Ex: http://vimeo.com/105255583382 here 105255583382 is the value you need to put as video id.', 
+			'title'=>__( 'Video ID', 'mondira' )
 		),
 		'el_class'=>array(
 			'type'=>'text', 
@@ -1105,46 +893,6 @@ $custom_shortcodes['mondira_vimeo'] = array(
 	)
 );
 
-/*
----------------------------------------------------------------------------------------
-	* Word Highlight Shortcode for WP Editor Shortcode Generator
----------------------------------------------------------------------------------------
-*/
-$custom_shortcodes['mondira_whighlight'] = array( 
-	'type'=>'regular', 
-	'title'=>__( 'Word Highlight', 'mondira' ), 
-	'attr'=>array( 
-		'labeltype'=>array(
-			'type'=>'select', 
-			'class'=>'', 
-			'title'=>__( 'Word Type', 'mondira' ),
-			'values'=>array(
-				'label-default'=>'Default',
-				'label-primary'=>'Primary',
-				'label-success'=>'Success',
-				'label-info'=>'Info',
-				'label-warning'=>'Warning',
-				'label-danger'=>'Danger'
-			)
-		),
-		'src'=>array(
-			'type'=>'text', 
-			'class'=>'', 
-			'title'=>__( 'Target SRC', 'mondira' ),
-			'values'=> '#'
-		),
-		'content'=>array(
-			'type'=>'text', 
-			'desc' => '', 
-			'title'=>__( 'Word Text', 'mondira' )
-		),
-		'el_class'=>array(
-			'type'=>'text', 
-			'desc' => 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 
-			'title'=>__( 'Extra Class Name', 'mondira' )
-		)
-	)
-);
 
 /*
 ---------------------------------------------------------------------------------------
@@ -1155,10 +903,10 @@ $custom_shortcodes['mondira_youtube'] = array(
 	'type'=>'regular', 
 	'title'=>__( 'Youtube', 'mondira' ),  
 	'attr'=>array( 
-		'content'=>array(
+		'video_id'=>array(
 			'type'=>'text', 
-			'desc' => 'Youtube full video url.', 
-			'title'=>__( 'Video URL', 'mondira' )
+			'desc' => 'Youtube video id only, not the full url. Ex: https://www.youtube.com/watch?v=DqVPbEcXXXWtA0 here DqVPbEcXXXWtA0 is the value you need to put as video id.', 
+			'title'=>__( 'Video ID', 'mondira' )
 		),
 		'el_class'=>array(
 			'type'=>'text', 
